@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 import Hero from "./Components/Hero";
-import Testinomial from './Components/Testinomial'
-import Aboutus from "./Components/Aboutus"
+import Testinomial from './Components/Testinomial';
+import Aboutus from "./Components/Aboutus";
 import About from "./pages/About";
 import RemoteDBA from "./pages/RemoteDBA";
 import DBAOptions from "./pages/DBAOptions";
@@ -15,9 +15,22 @@ import MobileApps from "./pages/MobileApps";
 import Recruitment from "./pages/Recruitment";
 import Career from "./pages/Career";
 import Contact from "./pages/Contact";
+import Loader from "./Components/Loader";
+
 function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000); 
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <Router>
+      {loading && <Loader />}
       <Navbar />
       <main>
         <Routes>
@@ -26,8 +39,8 @@ function App() {
             element={
               <>
                 <Hero />
-                <Testinomial/>
-                <Aboutus/>
+                <Testinomial />
+                <Aboutus />
               </>
             }
           />

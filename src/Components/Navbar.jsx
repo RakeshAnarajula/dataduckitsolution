@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X, ArrowUp } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 const NavLink = ({ to, children, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -130,6 +130,7 @@ const DropdownItem = ({ to, children, onClick, isActive }) => {
 };
 const MobileMenu = ({ isOpen, onClose, servicesLinks }) => {
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
+  const navigate = useNavigate();
   return (
     <AnimatePresence>
       {isOpen && (
@@ -141,7 +142,15 @@ const MobileMenu = ({ isOpen, onClose, servicesLinks }) => {
         >
           <div className="w-full max-w-sm flex flex-col items-center pt-8 px-4">
             <div className="w-full flex flex-col items-center relative mb-8">
-              <img src="/logo-dataduck.png" alt="Logo" className="h-12 w-auto mb-4" />
+              <div 
+                onClick={() => {
+                  navigate("/");
+                  onClose();
+                }}
+                className="cursor-pointer"
+              >
+                <img src="/logo-dataduck.png" alt="Logo" className="h-12 w-auto mb-4" />
+              </div>
               <button onClick={onClose} className="absolute top-0 right-0">
                 <X className="w-6 h-6 text-white" />
               </button>
@@ -211,6 +220,10 @@ const Navbar = () => {
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
   useEffect(() => {
     const handleScroll = () => {
       setShowScrollButton(window.scrollY > 200);
@@ -224,6 +237,7 @@ const Navbar = () => {
     setSidebarOpen(false);
   }, [location]);
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
   const closeMenus = () => {
     setSidebarOpen(false);
     setDropdownOpen(false);
@@ -244,7 +258,12 @@ const Navbar = () => {
         }`}
       >
         <div className="hidden md:flex justify-between items-center max-w-8xl mx-auto px-6 h-16">
-          <img src="/logo-dataduck.png" alt="Logo" className="w-40 bg-white rounded-lg p-2" />
+          <div 
+            onClick={() => navigate("/")}
+            className="cursor-pointer"
+          >
+            <img src="/logo-dataduck.png" alt="Logo" className="w-40 bg-white rounded-lg p-2" />
+          </div>
           <div className="flex text-sm font-medium">
             <NavLink to="/">Home</NavLink>
             <NavLink to="/about">About Us</NavLink>
@@ -287,7 +306,12 @@ const Navbar = () => {
         </div>
         <div className="md:hidden flex justify-between items-center p-4">
           <div className="w-full flex justify-center relative">
-            <img src="/logo-dataduck.png" alt="Logo" className="w-40 bg-white rounded-lg p-2" />
+            <div 
+              onClick={() => navigate("/")}
+              className="cursor-pointer"
+            >
+              <img src="/logo-dataduck.png" alt="Logo" className="w-40 bg-white rounded-lg p-2" />
+            </div>
             <button
               onClick={() => setSidebarOpen(true)}
               className="absolute right-0 top-1/2 -translate-y-1/2"
