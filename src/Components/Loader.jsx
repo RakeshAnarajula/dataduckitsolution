@@ -12,13 +12,13 @@ const WebsiteLoader = () => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#312D2A]">
       <div className="relative w-[100px] h-[100px]">
         <div 
-          className="absolute w-[30px] h-[30px] top-1/2 left-1/2 bg-[#005bba]"
+          className="absolute w-[30px] h-[30px] top-1/2 left-1/2 bg-[#052f5d]"
           style={{
             animation: 'blockUp 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite'
           }}
         ></div>
         <div 
-          className="absolute w-[30px] h-[30px] bg-[#da9616]"
+          className="absolute w-[30px] h-[30px] bg-[#8d5e06]"
           style={{
             top: 'calc(50% - 30px)',
             left: 'calc(50% - 30px)',
