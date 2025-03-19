@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar";
+import Loader from "./Components/Loader";
 import Footer from "./Components/Footer";
 import Hero from "./Components/Hero";
 import Testinomial from './Components/Testinomial';
@@ -15,14 +16,13 @@ import MobileApps from "./pages/MobileApps";
 import Recruitment from "./pages/Recruitment";
 import Career from "./pages/Career";
 import Contact from "./pages/Contact";
-import Loader from "./Components/Loader";
 
 function App() {
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setLoading(false);
+      setIsLoading(false);
     }, 2000); 
 
     return () => clearTimeout(timer);
@@ -30,33 +30,40 @@ function App() {
 
   return (
     <Router>
-      {loading && <Loader />}
-      <Navbar />
-      <main>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Hero />
-                <Testinomial />
-                <Aboutus />
-              </>
-            }
-          />
-          <Route path="/about" element={<About />} />
-          <Route path="/services/remote-dba" element={<RemoteDBA />} />
-          <Route path="/services/dba-options" element={<DBAOptions />} />
-          <Route path="/services/salesforce" element={<Salesforce />} />
-          <Route path="/services/system-admin" element={<SystemAdmin />} />
-          <Route path="/services/web-design" element={<WebDesign />} />
-          <Route path="/services/mobile-apps" element={<MobileApps />} />
-          <Route path="/recruitment" element={<Recruitment />} />
-          <Route path="/career" element={<Career />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </main>
-      <Footer />
+      {isLoading ? (
+        <div className="flex items-center justify-center h-screen">
+          <Loader />
+        </div>
+      ) : (
+        <>
+          <Navbar />
+          <main>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <>
+                    <Hero />
+                    <Testinomial />
+                    <Aboutus />
+                  </>
+                }
+              />
+              <Route path="/about" element={<About />} />
+              <Route path="/services/remote-dba" element={<RemoteDBA />} />
+              <Route path="/services/dba-options" element={<DBAOptions />} />
+              <Route path="/services/salesforce" element={<Salesforce />} />
+              <Route path="/services/system-admin" element={<SystemAdmin />} />
+              <Route path="/services/web-design" element={<WebDesign />} />
+              <Route path="/services/mobile-apps" element={<MobileApps />} />
+              <Route path="/recruitment" element={<Recruitment />} />
+              <Route path="/career" element={<Career />} />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
+          </main>
+          <Footer />
+        </>
+      )}
     </Router>
   );
 }
